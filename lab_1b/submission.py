@@ -48,6 +48,16 @@ class MathResult(PacketType):
             ]
 
 
+class MathError(PacketType):
+    DEFINITION_IDENTIFIER = "ME"
+    DEFINITION_VERSION = "1.0"
+
+
+    FIELDS = [
+            ("ID", UINT32)
+            ]
+
+
 def basicUnitTest():
     #
     # p1 is a packet of type RequestMathQuestion()
@@ -113,6 +123,22 @@ def basicUnitTest():
     t4 = MathResult.Deserialize(p4b)
 
     assert p4 == t4
+
+
+    #
+    # p5 is a packet of type MathError()
+    #
+    # t5 is the test deserialized equivalent packet of p5
+    #
+    p5 = MathResult()
+    p5.Result = bool(random.getrandbits(1))
+    p5.ID = random.randint(0, 2^32)
+
+    p5b = p5.__serialize__()
+
+    t5 = MathResult.Deserialize(p5b)
+
+    assert p5 == t5
 
 
 
