@@ -92,8 +92,8 @@ def testPacketType(pt):
 
 
 
-def RI():
-	return random.randint(0, 2**32)
+def RI(MAX = 2**32):
+	return random.randint(0, MAX - 1)
 
 
 
