@@ -12,12 +12,14 @@ from playground.network.packet import PacketType
 from playground.network.packet.fieldtypes import BOOL, UINT32, STRING, BUFFER
 from playground.network.packet.fieldtypes.attributes import Optional
 
+import playground
 
 
 
 SimpleOperation = ['add', 'multiply']
 
 Answers = [-1] * 100
+
 
 
 class RequestMathQuestion(PacketType):
@@ -74,7 +76,7 @@ class MathError(PacketType):
 
 
 def RI(MAX = 2**32):
-	return random.randint(0, MAX)
+	return random.randint(0, MAX - 1)
 
 
 
@@ -293,5 +295,8 @@ if __name__ == "__main__":
 		if sys.argv[1] == "server":
 			basicOperation("server")
 		else:
-			basicOperation("client", sys.argv[2])
+			if len(sys.argv) == 3:
+				basicOperation("client", sys.argv[2])
+			else:
+				basicOperation("client", 10)
 
